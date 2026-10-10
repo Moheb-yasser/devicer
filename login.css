@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'heebo', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(icons/blackblue.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.wrapper{
+    width: 520px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(20px);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+}
+.wrapper .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 40px;
+    font-size: 18px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder{
+    color: #ffffffbd;
+    padding: 0 3px;
+    font-size: 18px;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 33%;
+    bottom: 10%;
+    font-size: 20px
+}
+.wrapper .rmmbr-frgt {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin: -15px 0 15px;
+
+}
+.rmmbr-frgt label input {
+    accent-color: #fff;
+    margin-right: 3px;
+
+}
+.rmmbr-frgt a {
+    color: #fff;
+    text-decoration: none;
+}
+.rmmbr-frgt a:hover {
+    text-decoration: underline;
+}
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 11px rgba(49, 232, 245, 0.603);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+.wrapper .register {
+    font-size: 15px;
+    text-align: center;
+    margin: 20px 0 15px;
+
+}
+.register p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+.register p a:hover{
+    text-decoration: underline;
+}

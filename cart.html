@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Devicer - Shopping Cart</title>
+  <link rel="stylesheet" href="e-commearc.css">
+  <style>
+    .cart-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .cart-header {
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 30px;
+      color: #000;
+    }
+    
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    
+    .cart-table th {
+      background-color: #f8f9fa;
+      padding: 15px;
+      text-align: left;
+      border-bottom: 2px solid #ddd;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .cart-table td {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-right: 15px;
+    }
+    
+    .cart-item-info {
+      display: flex;
+      align-items: center;
+    }
+    
+    .cart-item-name {
+      font-size: 16px;
+      color: #29292a;
+    }
+    
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .qty-btn:hover {
+      background: #3452ff;
+      color: white;
+      border-color: #3452ff;
+    }
+    
+    .qty-display {
+      width: 40px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    .remove-btn:hover {
+      background: #ff6b6b;
+      color: white;
+    }
+    
+    .cart-summary {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    .summary-row.total {
+      font-size: 20px;
+      font-weight: 500;
+      border-top: 2px solid #ddd;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      background: #3452ff;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    
+    .checkout-btn:hover {
+      background: #1e3ec7;
+      transform: translateY(-2px);
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .empty-cart i {
+      font-size: 60px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+    
+    .empty-cart p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    
+    .continue-shopping {
+      display: inline-block;
+      background: #3452ff;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+    }
+    
+    .continue-shopping:hover {
+      background: #1e3ec7;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    .modal h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .modal p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    .modal-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    .modal-btn.confirm {
+      background: #4CAF50;
+      color: white;
+    }
+    
+    .modal-btn.cancel {
+      background: #f44336;
+      color: white;
+    }
+    
+    .modal-btn.ok {
+      background: #3452ff;
+      color: white;
+    }
+    
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="container">
+      <div class="header-left">
+        <div class="welcome-text">
+          Welcome to Devicer
+          <span class="customer-care">Customer Care</span>
+          <a href="tel:1-800-123-4567">1-800-123-4567</a>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="calc-con"><a href="calculator.html" class="header-link">Calculator</a></div>
+        <div class="admin-con"><a href="admin_login.php" class="header-link">Admins Log In</a></div>
+        <a href="cart.html" class="header-link">My List</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="icons/devicer.png" alt="Devicer Logo">
+          </a>
+        </div>
+
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search products...">
+          <button class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <div class="cart-container">
+          <div class="cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count">0</span>
+          </div>
+          <div class="cart-info">
+            <p class="cart-label">Your Cart</p>
+            <p class="cart-total">$0.00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-item">Home</a>
+        <div class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle">
+            Features <i class="fa-solid fa-angle-down"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#">About Us</a>
+            <a href="#">News</a>
+            <a href="#">Contacts</a>
+            <a href="#">FAQ</a>
+            <a href="#">Sale</a>
+          </div>
+        </div>
+        <a href="cart.html" class="nav-item active">Cart</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="cart-container">
+    <h1 class="cart-header">Your Shopping Cart</h1>
+    
+    <div id="cart-content">
+    
+      <div class="empty-cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <p>Your cart is empty</p>
+        <a href="index.html" class="continue-shopping">Continue Shopping</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-ftr">
+    <div class="ftr-container">
+      <div class="ftr-column">
+        <h3 class="ftr-title">Products</h3>
+        <ul class="ftr-list">
+          <li><a href="#">Apple Watch Series</a></li>
+          <li><a href="#">Refurbished iPad 4th</a></li>
+          <li><a href="#">Apple 7.7 iPad</a></li>
+          <li><a href="#">Apple iPhone 6x 16GB</a></li>
+          <li><a href="#">Apple Magic Mouse</a></li>
+        </ul>
+      </div>
+
+      <div class="ftr-column">
+        <h3 class="ftr-title">Customer Service</h3>
+        <ul class="ftr-list">
+          <li><a href="#">News</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contacts</a></li>
+        </ul>
+      </div>
+
+      <div class="ftr-column">
+        <h3 class="ftr-title">Socials</h3>
+        <ul class="ftr-list">
+          <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+          <li><a href="#"><i class="fab fa-snapchat"></i> Snapchat</a></li>
+          <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+        </ul>
+      </div>
+
+      <div class="ftr-column">
+        <h3 class="ftr-title">Customer Care</h3>
+        <ul class="ftr-list">
+          <li><a href="#">Sale</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Cart</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#">Contacts</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <h3>Confirm Purchase</h3>
+      <p>Are you sure you want to complete this purchase?</p>
+      <div class="modal-buttons">
+        <button class="modal-btn confirm" id="confirmYes">Yes</button>
+        <button class="modal-btn cancel" id="confirmNo">No</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h3>Purchase Successful!</h3>
+      <p>Your order has been placed successfully.</p>
+      <div class="modal-buttons">
+        <button class="modal-btn ok" id="successOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="scroll-top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <script src="cart.js"></script>
+</body>
+</html>

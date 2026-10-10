@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: hsl(0, 0%, 95%);
+    }
+    .home-btn-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    .home-btn {
+        text-decoration: none;
+        color: hsl(0, 0%, 30%);
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: white;
+        border: 2px solid hsl(0, 0%, 30%);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: inline-block;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .home-btn:hover {
+        background-color: hsl(35, 100%, 55%);
+        color: white;
+        border-color: hsl(35, 100%, 55%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    #calculator{
+        font-family: Arial, sans-serif;
+        background-color: hsl(0, 0%, 15%);
+        border-radius: 15px;
+        max-width: 250px;
+        overflow: hidden;
+    }
+    #display{
+        width: 100%;
+        padding: 10px;
+        font-size: 2.5rem;
+        text-align: left;
+        border: none;
+        background-color: hsl(0, 0%, 20%);
+        color: white;
+        overflow: scroll;
+    }
+    #keys{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        padding: 15px;
+    }
+    button{
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        border: none;
+        background-color: hsl(0, 0%, 30%);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: hsl(0, 0%, 40%);
+    }
+    button:active{
+        background-color: hsl(0, 0%, 50%);
+    }
+    .operator-btn{
+        background-color: hsl(35, 100%, 55%);
+    }
+    .operator-btn:hover{
+        background-color: hsl(35, 100%, 65%);
+    }
+    .operator-btn:active{
+        background-color: hsl(35, 100%, 75%);
+    }
+  </style>
+</head>
+<body>
+  <div class="home-btn-container">
+    <a href="index.html" class="home-btn">Home</a>
+  </div>
+  <div id="calculator">
+    <input id="display" readonly>
+      <div id="keys">
+        <button onclick="appendToDisplay('+')" class="operator-btn">+</button>
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('-')" class="operator-btn">-</button>
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('*')" class="operator-btn">*</button>
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('/')" class="operator-btn">/</button>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="clearDisplay()" class="operator-btn">C</button>
+      </div>
+  </div>
+    <script>
+    const display = document.getElementById("display");
+    function appendToDisplay(input){
+      display.value += input;
+    }
+    function clearDisplay(){
+      display.value = "";
+    }
+    function calculate(){
+      try{
+        display.value = eval(display.value);
+      }
+      catch(error){
+        display.value = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
